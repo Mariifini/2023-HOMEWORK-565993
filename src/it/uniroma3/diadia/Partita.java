@@ -124,5 +124,9 @@ public class Partita {
 	}	
 	public Labirinto getLabirinto() {
 		return Labirinto;}
+	public boolean giocatoreIsVivo() {
+		return this.getGiocatore().getCfu() > 0;
+	}
+	
 	}
 
