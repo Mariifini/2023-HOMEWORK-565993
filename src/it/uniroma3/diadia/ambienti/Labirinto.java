@@ -62,8 +62,11 @@ public Stanza getStanzaVincente() {
 public Stanza getStanzaIniziale() {
 	return this.stanzaIniziale;
 }
-public void setStanzaIniziale(Stanza stanzaCorrente, Stanza stanzaIniziale) {
-	this.stanzaIniziale = stanzaIniziale;
+public void setStanzaIniziale( Stanza iniziale) {
+	 this.stanzaIniziale=iniziale ;
+}
+public void setStanzaVincente(Stanza vincente) {
+	this.stanzaVincente=vincente;
+}
 }
 
-}

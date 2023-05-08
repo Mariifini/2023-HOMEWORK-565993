@@ -65,6 +65,51 @@ public class StanzaTest {
 			Attrezzo attrezzo= new Attrezzo(ATTREZZO, 1);
 			this.stanza.addAttrezzo(attrezzo);
 			assertFalse(this.stanza.hasAttrezzo("inesistente"));
-		}}
+		}
 	 
+
+    @Test
+    public void testRemoveAttrezzo() {
+        Stanza s = new Stanza("Sala del Tesoro");
+        Attrezzo a1 = new Attrezzo("martello", 2);
+        Attrezzo a2 = new Attrezzo("chiave", 1);
+        Attrezzo a3 = new Attrezzo("libro", 3);
+        
+        // Aggiunge gli attrezzi alla stanza
+        s.addAttrezzo(a1);
+        s.addAttrezzo(a2);
+        s.addAttrezzo(a3);
+        
+        // Rimuove l'attrezzo "martello"
+        assertTrue(s.removeAttrezzo(a1));
+        
+        // Verifica che l'attrezzo "martello" non sia più presente nella stanza
+        assertFalse(s.hasAttrezzo("martello"));
+        
+        // Rimuove un attrezzo non presente nella stanza
+        assertFalse(s.removeAttrezzo(new Attrezzo("spada", 4)));
+    }
+    
+    @Test
+    public void testRemoveAttrezzoWithMap() {
+        Stanza s = new Stanza("Sala del Tesoro");
+        Attrezzo a1 = new Attrezzo("martello", 2);
+        Attrezzo a2 = new Attrezzo("chiave", 1);
+        Attrezzo a3 = new Attrezzo("libro", 3);
+
+        // Aggiunge gli attrezzi alla stanza
+        s.addAttrezzo(a1);
+        s.addAttrezzo(a2);
+        s.addAttrezzo(a3);
+
+        // Rimuove l'attrezzo "martello"
+        assertTrue(s.removeAttrezzo(a1));
+
+        // Verifica che l'attrezzo "martello" non sia più presente nella stanza
+        assertFalse(s.hasAttrezzo("martello"));
+
+        // Rimuove un attrezzo non presente nella stanza
+        assertFalse(s.removeAttrezzo( new Attrezzo("spada", 4)));
+    }
+}
 

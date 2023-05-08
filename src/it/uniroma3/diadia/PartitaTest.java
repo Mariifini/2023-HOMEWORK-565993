@@ -14,10 +14,11 @@ import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
 	private Partita partita;
+	private IO io;
 
 	@Before
 	public void setUp() {
-		this.partita= new Partita();
+		this.partita= new Partita(io);
 	}//in questo modo prima di ogni test inizializzo
 	@Test
 	public void testGetStanzaVincente1() {

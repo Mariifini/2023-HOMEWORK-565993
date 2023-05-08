@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -17,10 +18,11 @@ public class ComandoPosaTest {
 	private ComandoPosa comandoPosa;
 	private Stanza stanza;
 	private Borsa borsa;
+	private IO io;
 
 	@Before
 	public void setUp() throws Exception{
-		this.partita = new Partita();
+		this.partita = new Partita(io);
 		this.comandoPosa = new ComandoPosa();
 		this.comandoPosa.setIO(new IOConsole());//quando c'e' il new non posso usarlo con l interfaccia
 		this.stanza = new Stanza("stanza");

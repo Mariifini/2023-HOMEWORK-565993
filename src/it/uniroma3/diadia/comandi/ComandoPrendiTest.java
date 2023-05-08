@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
@@ -17,10 +18,11 @@ import org.junit.Before;
 		private Comando comandoPrendi;
 		private Stanza stanzaTest;
 		private Borsa borsaTest;
+		private IO io;
 
 		@Before
 		public void setUp() {
-			partitaTest = new Partita();
+			partitaTest = new Partita(io);
 			comandoPrendi = new ComandoPrendi();
 			stanzaTest = new Stanza("Camera");
 			stanzaTest.addAttrezzo(new Attrezzo("Libro", 1));

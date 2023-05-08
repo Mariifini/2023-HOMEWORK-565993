@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
@@ -34,8 +35,12 @@ public class DiaDia {
 	private IO io;
 
 	public DiaDia(IO io) {
-		this.partita = new Partita();
+		this.partita = new Partita(io);
 		this.io= io;
+	}
+	public DiaDia(IO io, Labirinto labirinto) {
+		this.io=io;
+		this.partita= new Partita(io, labirinto);
 	}
 
 	public void gioca() {

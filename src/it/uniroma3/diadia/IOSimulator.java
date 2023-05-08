@@ -1,49 +1,59 @@
 package it.uniroma3.diadia;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 public class IOSimulator implements IO {
 
-	private String[] righeDaLeggere;
-	private int indiceRigheDaLeggere;
-	private String[] messaggiProdotti;
-	private int indiceMessaggiProdotti;
-	private int indiceMessaggiMostrati;
+	private Map<Integer , String> istruzioni;
+	private Map<Integer, List<String>> messaggi;
+	private int numeroIstruzioneCorrente;
+	private int numeroIstruzioneDaLeggere;
 
-	public IOSimulator(String... righeDaLeggere) {
-		this.righeDaLeggere=righeDaLeggere;
-		this.indiceRigheDaLeggere=0;
-		this.messaggiProdotti=new String[100];
-		this.indiceMessaggiProdotti=0;
-		this.indiceMessaggiMostrati=0;
+
+	public IOSimulator() {
+		this.istruzioni=new HashMap<>();
+		this.messaggi= new HashMap<>();
+		this.numeroIstruzioneCorrente=0;
+		this.numeroIstruzioneDaLeggere=0;
 	}
-
-
+	
 	@Override
 	public void mostraMessaggio(String messaggio) {
-		this.messaggiProdotti[this.indiceMessaggiProdotti]= messaggio;
-		this.indiceMessaggiProdotti++;
+		List<String> l;
+		if(messaggi.containsKey(this.numeroIstruzioneCorrente)) {
+		l=messaggi.get(this.numeroIstruzioneCorrente);
+		l.add(messaggio);
+		}
+		else {
+		l=new LinkedList<String>();
+		l.add(messaggio);
+		}
+				System.out.println(messaggio);
+				return;
+	
 	}
-
+	
 	@Override
 	public String leggiRiga() {
-		String rigaLetta =this.righeDaLeggere[this.indiceRigheDaLeggere];
-		this.indiceRigheDaLeggere++;
-		return rigaLetta;
+		numeroIstruzioneDaLeggere+=1;
+		
+		return istruzioni.get((this.numeroIstruzioneDaLeggere)-1);
+		
+	
 	}
-	public String nextMessaggio() {
-		String next=this.messaggiProdotti[this.indiceMessaggiMostrati];
-		this.indiceMessaggiMostrati++;
-		return next;	
-	}
-
-	public boolean hasNextMessaggio() {
-		return this.indiceMessaggiMostrati < this.indiceMessaggiProdotti;
+	
+	public int getIstruzioneCorrente() {
+		return this.numeroIstruzioneCorrente;
 	}
 
-public String[] getMessaggiProdotti() {
-	return messaggiProdotti;
+	
+	public void setIstruzione(String Istruzione) {
+		istruzioni.put(this.numeroIstruzioneCorrente, Istruzione);
+		numeroIstruzioneCorrente+=1;
+		}
+
 }
 
-public void setMessaggiProdotti(String[] messaggiProdotti) {
-	this.messaggiProdotti = messaggiProdotti;
-}
-}
