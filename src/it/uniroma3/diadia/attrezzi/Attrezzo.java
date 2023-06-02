@@ -1,6 +1,5 @@
 package it.uniroma3.diadia.attrezzi;
 
-
 /**
  * Una semplice classe che modella un attrezzo.
  * Gli attrezzi possono trovarsi all'interno delle stanze
@@ -47,7 +46,17 @@ public class Attrezzo {
 	 * @return la rappresentazione stringa
 	 */
 	public String toString() {
-		return this.getNome()+" ("+this.getPeso()+"kg)";
+		return this.getNome() +" ("+this.getPeso()+"kg) ";
 	}
-
+	
+	@Override
+	public boolean equals(Object that) {
+		Attrezzo o = (Attrezzo) that;
+		return this.getNome().equals(o.getNome()) && this.getPeso()==o.getPeso();
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getPeso()+this.getNome().hashCode();
+	}
 }

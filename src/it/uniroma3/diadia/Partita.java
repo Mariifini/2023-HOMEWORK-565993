@@ -1,9 +1,6 @@
 package it.uniroma3.diadia;
-
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.giocatore.Giocatore;
-
+import it.uniroma3.diadia.ambienti.*;
+import it.uniroma3.diadia.giocatore.*;
 /**
  * Questa classe modella una partita del gioco
  *
@@ -13,127 +10,54 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-
-//	static final private int CFU_INIZIALI = 20;
+	
 	private IO io;
-	private Stanza stanzaCorrente;
-//	private Stanza stanzaVincente; spostate in labirinto
-	private boolean finita;
-	//private int cfu;
-	public Labirinto Labirinto;
-	public Giocatore Giocatore;
+	private Labirinto labirinto;
+	private Giocatore giocatore;
+	private Boolean isFinita;
+	private Stanza corrente;
 
-	
-	public Partita(IO io){
-		//creaStanze(); spostata in labirinto
-		this.finita = false;
-//		this.cfu = CFU_INIZIALI;
-		this.Labirinto= new Labirinto();
-		this.Giocatore= new Giocatore();
-		this.stanzaCorrente=this.Labirinto.getStanzaIniziale();
-	}
-	public Partita(IO io, Labirinto labirinto) {
-		this.Labirinto=labirinto;
-		this.Giocatore= new Giocatore();
-		this.stanzaCorrente=labirinto.getStanzaIniziale();
+	public Partita(IO io) {
+		this.labirinto= new Labirinto();
+		this.giocatore= new Giocatore();
+		this.corrente=labirinto.getStanzaIniziale();
 		this.io= io;
-		this.finita= false;
-	}
-	public Giocatore getGiocatore() {
-		return Giocatore;
-	}
-	public void setGiocatore(Giocatore giocatore) {
-		Giocatore=giocatore;
+		this.isFinita= false;
 	}
 
-
-//    /**
-//     * Crea tutte le stanze e le porte di collegamento
-//     */
-//    private void creaStanze() {
-//
-//		/* crea gli attrezzi */
-//    	Attrezzo lanterna = new Attrezzo("lanterna",3);
-//		Attrezzo osso = new Attrezzo("osso",1);
-//    	
-//		/* crea stanze del labirinto */
-//		Stanza atrio = new Stanza("Atrio");
-//		Stanza aulaN11 = new Stanza("Aula N11");
-//		Stanza aulaN10 = new Stanza("Aula N10");
-//		Stanza laboratorio = new Stanza("Laboratorio Campus");
-//		Stanza biblioteca = new Stanza("Biblioteca");
-//		
-//		/* collega le stanze */
-//		atrio.impostaStanzaAdiacente("nord", biblioteca);
-//		atrio.impostaStanzaAdiacente("est", aulaN11);
-//		atrio.impostaStanzaAdiacente("sud", aulaN10);
-//		atrio.impostaStanzaAdiacente("ovest", laboratorio);
-//		aulaN11.impostaStanzaAdiacente("est", laboratorio);
-//		aulaN11.impostaStanzaAdiacente("ovest", atrio);
-//		aulaN10.impostaStanzaAdiacente("nord", atrio);
-//		aulaN10.impostaStanzaAdiacente("est", aulaN11);
-//		aulaN10.impostaStanzaAdiacente("ovest", laboratorio);
-//		laboratorio.impostaStanzaAdiacente("est", atrio);
-//		laboratorio.impostaStanzaAdiacente("ovest", aulaN11);
-//		biblioteca.impostaStanzaAdiacente("sud", atrio);
-//
-//        /* pone gli attrezzi nelle stanze */
-//		aulaN10.addAttrezzo(lanterna);
-//		atrio.addAttrezzo(osso);
-//
-//		// il gioco comincia nell'atrio
-//        stanzaCorrente = atrio;  
-//		stanzaVincente = biblioteca;
-//    }
-
-	public Stanza getStanzaVincente() {
-		return this.Labirinto.getStanzaVincente();
+	public Partita(IO io, Labirinto labirinto) {
+		this.labirinto= labirinto;
+		this.giocatore= new Giocatore();
+		this.corrente= labirinto.getStanzaIniziale();
+		this.io= io;
+		this.isFinita= false;
 	}
-
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
-	}
-
+	
 	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
+		return this.corrente;
+	}
+	public void setStanzaCorrente(Stanza newCorrente) {
+		this.corrente=newCorrente;
 	}
 	
-	/**
-	 * Restituisce vero se e solo se la partita e' stata vinta
-	 * @return vero se partita vinta
-	 */
-	public boolean vinta() {
-		return this.getStanzaCorrente()== this.getStanzaVincente();
+	public void setIsFinita() {
+		if(!giocatore.isVivo()) this.isFinita=true;
+		if(getStanzaCorrente()==labirinto.getStanzaVincente()) this.isFinita=true;
 	}
 
-	/**
-	 * Restituisce vero se e solo se la partita e' finita
-	 * @return vero se partita finita
-	 */
-	public boolean isFinita() {
-		return finita || vinta() || (Giocatore.getCfu() == 0);
-	}
-
-	/**
-	 * Imposta la partita come finita
-	 *
-	 */
-	public void setFinita() {
-		this.finita = true;
-	}
-
-	public int getCfu() {
-		return this.Giocatore.getCfu();
-	}
-
-	public void setCfu(int cfu) {
-		this.Giocatore.setCfu(cfu);		
-	}	
-	public Labirinto getLabirinto() {
-		return Labirinto;}
-	public boolean giocatoreIsVivo() {
-		return this.getGiocatore().getCfu() > 0;
+	public Boolean getIsFinita() {
+		if(!giocatore.isVivo()) 
+			io.mostraMessaggio("mi spiace "+giocatore.GetNome()+ ", sei morto MALISSIMO\n");
+		else if(getStanzaCorrente()==labirinto.getStanzaVincente()) 
+			io.mostraMessaggio("bravissimo "+giocatore.GetNome()+ ", hai VINTO!!\n");
+		return this.isFinita;
 	}
 	
+	public IO getIO() {
+		return this.io;	
 	}
-
+	
+	public Giocatore getGiocatore() {
+		return this.giocatore;
+	}
+}

@@ -1,5 +1,4 @@
 package it.uniroma3.diadia.attrezzi;
-
 import java.util.Comparator;
 
 public class ComparatorePerNome implements Comparator<Attrezzo> {
@@ -10,5 +9,4 @@ public class ComparatorePerNome implements Comparator<Attrezzo> {
 			return (p1.getPeso()-p2.getPeso());
 		return p1.getNome().compareTo(p2.getNome());
 	}
-
 }

@@ -1,11 +1,8 @@
 package it.uniroma3.diadia;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class IOSimulator implements IO {
+public class IOSimulator implements IO{
 
 	private Map<Integer , String> istruzioni;
 	private Map<Integer, List<String>> messaggi;
@@ -55,5 +52,9 @@ public class IOSimulator implements IO {
 		numeroIstruzioneCorrente+=1;
 		}
 
-}
+	@Override
+	public Scanner getScanner() {
+		return null;
+	}
 
+}

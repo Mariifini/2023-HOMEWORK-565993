@@ -1,23 +1,49 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.Proprietà;
+
 public class Giocatore {
-	static final int CFU_INIZIALI = 20;
+
+	static final private Proprietà prop= new Proprietà();
+	
+	static final private int CFU_INIZIALI=Integer.parseInt(Proprietà.getProp("cfu_iniziali"));
+
+	private String nome;
 	private int cfu;
+	private boolean vivo;
 	private Borsa borsa;
 
-public Giocatore(){
-this.cfu = CFU_INIZIALI;
-this.borsa=new Borsa();}
-public int getCfu() {
-	return cfu;
-}
-public void setCfu(int cfu) {
-	this.cfu = cfu;
-}
-public Borsa getBorsa() {
-	return this.borsa;
-}
-public void setBorsa(Borsa borsa) {
-	this.borsa =borsa;
-}
+	public Giocatore (){
+
+		this.borsa=new Borsa();
+		this.cfu=CFU_INIZIALI;
+		this.vivo=true; 
+	}
+
+	public boolean isVivo() {
+		return vivo; 
+	}
+
+	public void setVivo() {
+		this.vivo=(this.cfu>0); 
+	}
+
+	public int getCfu() {
+		return this.cfu; 
+	}
+
+	public void setCfu(int dcfu) {
+		this.cfu = this.cfu + dcfu; 
+	}	
+
+	public void setNome(String nome) {
+		this.nome=nome;
+	}
+	public String GetNome() {
+		return this.nome;
+	}
+
+	public Borsa getBorsa() {
+		return this.borsa;
+	}
 }
